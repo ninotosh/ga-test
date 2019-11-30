@@ -6,11 +6,9 @@ on:
 jobs:
   my-job:
     runs-on: ubuntu-latest
-    env:
-      MERGED_AT: ${{ github.event.pull_request.merged_at }}
     steps:
-      - name: show merged_at
-        run: cat $MERGED_AT
+      - name: show merged
+        run: echo ${{ github.event.pull_request.merged }}
       - name: show full event
         run: cat $GITHUB_EVENT_PATH
       - name: show system env
