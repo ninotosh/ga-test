@@ -1,21 +1,11 @@
 on:
   pull_request:
-    types: closed
-    branches:
-      - master
+    types: opened
 jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: show merged
-        run: echo ${{ github.event.pull_request.merged }}
       - name: show full event
         run: cat $GITHUB_EVENT_PATH
-      - name: Comment On New Issues
-        uses: actions/github@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: comment "@${{ github.event.pull_request.merged_by.login }}, good job!"
       - name: show system env
         run: printenv
