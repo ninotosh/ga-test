@@ -11,5 +11,7 @@ jobs:
         run: echo ${{ github.event.pull_request.merged }}
       - name: show full event
         run: cat $GITHUB_EVENT_PATH
+      - name: show full context
+        run: echo ${{ github }}
       - name: show system env
         run: printenv
