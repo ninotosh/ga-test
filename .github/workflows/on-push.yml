@@ -25,4 +25,4 @@ jobs:
       - id: check-diff
         run: |
           git diff --name-only | grep -E '^.github/'
-          echo ::set-output name=exists::$?
+          echo $?
