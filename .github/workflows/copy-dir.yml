@@ -1,0 +1,28 @@
+on:
+  push:
+jobs:
+  copy-dir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2-beta
+        with:
+          ref: refs/heads/master
+      - run: ls -alFR $GITHUB_WORKSPACE
+      - run: cd $GITHUB_WORKSPACE
+      - run: git branch copy-dir-${GITHUB_SHA}
+      - run: git checkout copy-dir-${GITHUB_SHA}
+      - run: mkdir -p copy-github
+      - run: cp -r .github/* copy-github
+      # - id: check-diff
+      #   run: |
+      #     git diff --name-only | grep -E '^.github/'
+      #     echo ::set-output name=exists::$?
+      - id: check-diff
+        run: |
+          echo ::set-output name=exists::0
+      - if: steps.check-diff.outputs.exists == '0'
+        run: |
+          git add .
+          git config user.name "${GITHUB_ACTOR}"
+          git commit -m "copy after ${GITHUB_SHA}"
+          git push origin copy-dir-${GITHUB_SHA}
