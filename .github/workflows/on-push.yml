@@ -18,3 +18,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             console.log(JSON.stringify(context, null, 4))
+      - uses: actions/checkout@v2-beta
+        with:
+          ref: refs/heads/master
+      - run: cd $GITHUB_WORKSPACE
+      - id: check-diff
+        run: |
+          git diff --name-only | grep -E '^.github/'
+          echo ::set-output name=exists::$?
