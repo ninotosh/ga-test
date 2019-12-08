@@ -31,11 +31,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             console.log(context.payload.repository.owner.name)
-      - uses: actions/github-script@0.3.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            console.log("copy after ${{context.payload.after}}")
+      # - uses: actions/github-script@0.3.0
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       console.log("copy after ${{context.payload.after}}")
       # - if: steps.check-diff.outputs.exists == '0'
       #   uses: actions/github-script@0.3.0
       #   with:
