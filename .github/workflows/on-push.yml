@@ -30,7 +30,3 @@ jobs:
         run: echo zero
       - if: steps.check-diff.outputs.exists == '1'
         run: echo one
-      - if: steps.check-diff.outputs.exists === '0'
-        run: echo Zero
-      - if: steps.check-diff.outputs.exists === '1'
-        run: echo One
