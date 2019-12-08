@@ -21,4 +21,17 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            console.log(JSON.stringify(github))
+            for (let key in github) {
+              console.log(JSON.stringify(github[key]))
+            }
+      # - name: make a comment
+      #   uses: actions/github-script@0.3.0
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       github.issues.createComment({
+      #         owner: ${{ context.payload.repository.owner.name }},
+      #         repo: ${{ context.payload.repository.name }},
+      #         issue_number: not found in `context`
+      #         body: "@${{ github.event.pull_request.merged_by.login }}, nice work!"
+      #       })
