@@ -16,6 +16,9 @@ jobs:
       - run: mkdir -p copy-github
       - run: cp -r .github/* copy-github
       - run: git diff --name-only
+      - run: |
+          result=`git diff --name-only | grep -E '^copy-github/'; echo $?`
+          echo $result
       - id: check-diff
         run: |
           result=`git diff --name-only | grep -E '^copy-github/'; echo $?`
