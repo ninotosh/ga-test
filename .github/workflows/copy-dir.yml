@@ -26,3 +26,16 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git commit -m "copy after ${GITHUB_SHA}"
           git push origin copy-dir-${GITHUB_SHA}
+      - if: steps.check-diff.outputs.exists == '0'
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.pulls.create({
+              owner: context.payload.repository.owner.name,
+              repo: context.payload.repository.name,
+              title: "copy after ${{context.payload.after}}",
+              head: "copy-dir-${GITHUB_SHA}",
+              base: "master",
+              body: "copy after ${{context.payload.after}}"
+            })
