@@ -24,6 +24,5 @@ jobs:
       - run: cd $GITHUB_WORKSPACE
       - id: check-diff
         run: |
-          git diff --name-only | grep -E '^.github/'
-      - if: always()
-        run: echo $?
+          result=`git diff --name-only | grep -E '^.github/'; echo $?`
+          echo $result
