@@ -1,6 +1,7 @@
 on:
-  pull_request:
-    types: opened
+  push:
+    branches:
+      - master
 jobs:
   my-job:
     runs-on: ubuntu-latest
@@ -9,6 +10,3 @@ jobs:
         run: cat $GITHUB_EVENT_PATH
       - name: show system env
         run: printenv
-      - uses: actions/hello-world-docker-action@b136eb8
-        with:
-          who-to-greet: 'Mona the Octocat'
