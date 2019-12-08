@@ -25,4 +25,5 @@ jobs:
       - id: check-diff
         run: |
           git diff --name-only | grep -E '^.github/'
-          echo $?
+      - if: always()
+        run: echo $?
