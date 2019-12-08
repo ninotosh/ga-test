@@ -8,6 +8,21 @@ jobs:
         with:
           ref: refs/heads/master
       - run: ls -alFR $GITHUB_WORKSPACE
+      - run: cd $GITHUB_WORKSPACE
+      - run: git branch copy-dir-${GITHUB_SHA}
+      - run: git checkout copy-dir-${GITHUB_SHA}
+      - run: mkdir -p copy-github
+      - run: cp -r .github/* copy-github
+      - id: check-diff
+        run: |
+          git diff --name-only | grep -E '^.github/'
+          echo ::set-output name=exists::$?
+      - if: steps.check-diff.outputs.exists == '0'
+        run: git add .
+      - if: steps.check-diff.outputs.exists == '0'
+        run: git commit -m "copy after ${GITHUB_SHA}"
+      - if: steps.check-diff.outputs.exists == '0'
+        run: git push origin copy-dir-${GITHUB_SHA}
       - name: docker image ls
         run: docker image ls
       - name: show full event
