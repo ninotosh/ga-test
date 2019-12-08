@@ -21,11 +21,11 @@ jobs:
         run: |
           echo ::set-output name=exists::0
       - if: steps.check-diff.outputs.exists == '0'
-        run: git add .
-      - if: steps.check-diff.outputs.exists == '0'
-        run: git commit -m "copy after ${GITHUB_SHA}"
-      - if: steps.check-diff.outputs.exists == '0'
-        run: git push origin copy-dir-${GITHUB_SHA}
+        run: |
+          git add .
+          git config user.name "${GITHUB_ACTOR}"
+          git commit -m "copy after ${GITHUB_SHA}"
+          git push origin copy-dir-${GITHUB_SHA}
       - name: docker image ls
         run: docker image ls
       - name: show full event
