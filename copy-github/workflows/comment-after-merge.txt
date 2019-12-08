@@ -1,0 +1,22 @@
+on:
+  pull_request:
+    types: closed
+    branches:
+      - master
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: make a comment
+        if: github.event.pull_request.merged
+        uses: actions/github@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: comment "@${{ github.event.pull_request.merged_by.login }}, good job!"
+      - if: github.event.pull_request.merged
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({ ...context.issue, body: "@${{ github.event.pull_request.merged_by.login }}, nice work!" })

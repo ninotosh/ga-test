@@ -1,0 +1,20 @@
+on:
+  push:
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: docker image ls
+        run: docker image ls
+      - name: show full event
+        run: cat $GITHUB_EVENT_PATH
+      - name: show system env
+        run: printenv
+      - uses: actions/hello-world-docker-action@b136eb8
+        with:
+          who-to-greet: 'Mona the Octocat'
+      - uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log(JSON.stringify(context, null, 4))
