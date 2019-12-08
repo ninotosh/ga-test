@@ -14,3 +14,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: comment "@${{ github.event.pull_request.merged_by.login }}, good job!"
+      - uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({ ...context.issue, body: "@${{ github.event.pull_request.merged_by.login }}, nice work!" })
