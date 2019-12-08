@@ -17,11 +17,11 @@ jobs:
       - run: cp -r .github/* copy-github
       - run: git diff --name-only
       - run: |
-          result=`git diff --name-only | grep -E '^copy-github/'; echo $?`
+          result=`git diff --name-only | grep -q -E '^copy-github/'; echo $?`
           echo $result
       - id: check-diff
         run: |
-          result=`git diff --name-only | grep -E '^copy-github/'; echo $?`
+          result=`git diff --name-only | grep -q -E '^copy-github/'; echo $?`
           echo ::set-output name=exists::$result
       - if: steps.check-diff.outputs.exists == '0'
         run: |
