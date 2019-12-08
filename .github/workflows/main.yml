@@ -12,3 +12,7 @@ jobs:
       - uses: actions/hello-world-docker-action@b136eb8
         with:
           who-to-greet: 'Mona the Octocat'
+      - uses: actions/github-script@0.3.0
+        script: console.log(JSON.stringify(context))
+      - uses: actions/github-script@0.3.0
+        script: console.log(JSON.stringify(github))
