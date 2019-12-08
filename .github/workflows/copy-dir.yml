@@ -16,10 +16,9 @@ jobs:
       - run: mkdir -p copy-github
       - run: cp -r .github/* copy-github
       - run: git diff --name-only
-      - run: git diff --name-only | grep -E '^.github/'
       - id: check-diff
         run: |
-          result=`git diff --name-only | grep -E '^.github/'; echo $?`
+          result=`git diff --name-only | grep -E '^copy-github/'; echo $?`
           echo ::set-output name=exists::$result
       - if: steps.check-diff.outputs.exists == '0'
         run: |
