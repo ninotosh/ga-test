@@ -26,3 +26,11 @@ jobs:
         run: |
           result=`git diff --name-only | grep -E '^.github/'; echo $?`
           echo ::set-output name=exists::$result
+      - if: steps.check-diff.outputs.exists == '0'
+        run: echo zero
+      - if: steps.check-diff.outputs.exists == '1'
+        run: echo one
+      - if: steps.check-diff.outputs.exists === '0'
+        run: echo Zero
+      - if: steps.check-diff.outputs.exists === '1'
+        run: echo One
