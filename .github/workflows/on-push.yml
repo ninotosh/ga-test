@@ -10,3 +10,5 @@ jobs:
         run: cat $GITHUB_EVENT_PATH
       - name: show system env
         run: printenv
+      - name: output test secret
+        run: echo ${{ secrets.TEST_SECRET }}
