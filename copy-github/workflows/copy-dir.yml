@@ -15,13 +15,14 @@ jobs:
       - run: git checkout copy-dir-${GITHUB_SHA}
       - run: mkdir -p copy-github
       - run: cp -r .github/* copy-github
-      # - id: check-diff
-      #   run: |
-      #     git diff --name-only | grep -E '^.github/'
-      #     echo ::set-output name=exists::$?
+      - run: git diff --name-only
+      - run: |
+          result=`git diff --name-only | grep -q -E '^copy-github/'; echo $?`
+          echo $result
       - id: check-diff
         run: |
-          echo ::set-output name=exists::0
+          result=`git diff --name-only | grep -q -E '^copy-github/'; echo $?`
+          echo ::set-output name=exists::$result
       - if: steps.check-diff.outputs.exists == '0'
         run: |
           git add .
