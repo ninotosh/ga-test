@@ -15,6 +15,7 @@ jobs:
       - run: git checkout copy-dir-${GITHUB_SHA}
       - run: mkdir -p copy-github
       - run: cp -r .github/* copy-github
+      - run: git add --intent-to-add .
       - run: git diff --name-only
       - run: |
           result=`git diff --name-only | grep -q -E '^copy-github/'; echo $?`
